@@ -147,7 +147,7 @@ NODE_CLASS_MAPPINGS = {
     "LoopStart": LoopStart,
     "LoopEnd": LoopEnd,
     "LoopStart_SEGIMAGE": LoopStart_SEGIMAGE,
-    "LoopEnd_SEGS": LoopEnd_SEGS
+    "LoopEnd_SEGIMAGE": LoopEnd_SEGIMAGE
 }
 
 
