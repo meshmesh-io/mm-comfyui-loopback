@@ -15,6 +15,7 @@ class LoopStart:
     def INPUT_TYPES(s):
         return {"required": {"first_loop": s.RETURN_TYPES, "loop": ("LOOP",)}}
 
+    RETURN_TYPES = ()
     FUNCTION = "run"
     CATEGORY = "loopback"
 
