@@ -62,7 +62,9 @@ class LoopStart_SEGIMAGE:
     images_list = []
     def run(self, loop, image):
         print(f"Input tensor shape: {image.shape}")
+
         if self.images_list is None:
+            print('setting up images_list')
             for (batch_number, _image) in enumerate(image):
                 i = 255. * _image.cpu().numpy()
                 img = Image.fromarray(np.clip(i, 0, 255).astype(np.uint8))
@@ -70,7 +72,7 @@ class LoopStart_SEGIMAGE:
             print(f"LoopStart_SEGIMAGE image_list len after split: {len(self.images_list)}")  # Debug print for list length
         if hasattr(loop, 'next'):
             self.idx += 1
-            print("LoopStart_SEGIMAGE first run", self.idx)
+            print("LoopStart_SEGIMAGE next run", self.idx)
             loop.next = self.images_list[self.idx]
             return (loop.next,)
         print("LoopStart_SEGIMAGE first run", self.idx)
