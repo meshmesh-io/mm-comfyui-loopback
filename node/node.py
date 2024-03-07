@@ -74,12 +74,12 @@ addLoopType("MODEL")
 
 # These don't work for some reason :/
 # addLoopType("FLOAT")
-# addLoopType("INT")
-# addLoopType("STRING")
+addLoopType("INT")
+addLoopType("STR")
 
 # Derfuu nodes use these types
 addLoopType("FlOAT")
-addLoopType("INT")
+addLoopType("INTEGER")
 addLoopType("TUPLE")
 
 # WAS nodes use these types
