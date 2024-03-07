@@ -49,14 +49,17 @@ class LoopEnd:
 class LoopStart_SEGS:
     @classmethod
     def INPUT_TYPES(s):
-        return {"required": {"loop": ("LOOP",), "image": ("IMAGE",)}}
+        return {"required": {"loop": ("LOOP",), "segs": ("SEGS",)}}
 
-    RETURN_TYPES = ()
+    RETURN_TYPES = ("SEGS",)
     FUNCTION = "run"
     CATEGORY = "loopback"
 
-    def run(self, loop):
+    idx = 0
+    def run(self, loop, segs):
         if hasattr(loop, 'next'):
+            loop.next = segs[idx]
+            idx += 1
             return (loop.next,)
 
     @classmethod
