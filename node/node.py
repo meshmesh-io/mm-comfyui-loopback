@@ -105,13 +105,13 @@ class LoopStart_SEGIMAGE:
 
     idx = 0
     def run(self, loop, image):
-        
+        print("LoopStart_SEGIMAGE image", image)
         if hasattr(loop, 'next'):
             self.idx += 1
-            print("LoopStart_SEGS first run", self.idx)
+            print("LoopStart_SEGIMAGE first run", self.idx)
             loop.next = image[self.idx]
             return (loop.next,)
-        print("LoopStart_SEGS first run", self.idx)
+        print("LoopStart_SEGIMAGE first run", self.idx)
         return (image[self.idx],)
 
     @classmethod
