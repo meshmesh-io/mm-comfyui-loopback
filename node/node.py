@@ -52,9 +52,17 @@ NODE_CLASS_MAPPINGS = {
     "LoopEnd": LoopEnd
 }
 
+
+NODE_DISPLAY_NAME_MAPPINGS = {
+    "LoopEnd": "LoopEnd",
+    "LoopStart": "LoopStart",
+    "LoopEnd": "LoopEnd"
+}
+
 def addLoopType(t):
     NODE_CLASS_MAPPINGS["LoopStart_" + t] = type("LoopStart_" + t, (LoopStart, ), { "RETURN_TYPES": (t,) })
     NODE_CLASS_MAPPINGS["LoopEnd_" + t] = type("LoopEnd_" + t, (LoopEnd, ), { "LOOP_TYPE": (t,) })
+    NODE_DISPLAY_NAME_MAPPINGS["LoopEnd_" + t] = ["LoopEnd_" + t]
 
 # ComfyUI types
 addLoopType("IMAGE")
