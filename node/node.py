@@ -68,7 +68,7 @@ class LoopStart_SEGIMAGE:
             loop.next = self.images_list[self.idx]
             return (loop.next,)
         print("LoopStart_SEGIMAGE first run", self.idx)
-        return (self. images_list[self.idx],)
+        return (self.images_list[self.idx],)
 
     @classmethod
     def IS_CHANGED(s,loop):
