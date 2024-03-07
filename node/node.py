@@ -110,7 +110,7 @@ class LoopStart_SEGIMAGE:
             self.idx += 1
             loop.next = image[self.idx]
             return (loop.next,)
-        return ([image[self.idx]],)
+        return (image[self.idx],)
 
     @classmethod
     def IS_CHANGED(s,loop):
