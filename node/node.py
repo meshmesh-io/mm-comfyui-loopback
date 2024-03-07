@@ -79,11 +79,11 @@ addLoopType("MODEL")
 
 # Derfuu nodes use these types
 addLoopType("FlOAT")
-addLoopType("INTEGER")
+addLoopType("INT")
 addLoopType("TUPLE")
 
 # WAS nodes use these types
 addLoopType("ASCII")
-addLoopType("STR")
+addLoopType("STRING")
 
 # Feel free to add more loopback node types here
