@@ -60,9 +60,9 @@ class LoopStart_SEGS:
         print("LoopStart_SEGS run", self.idx)
         if hasattr(loop, 'next'):
             self.idx += 1
-            loop.next = segs[self.idx]
+            loop.next = segs[1][self.idx]
             return (loop.next,)
-        return ([segs[self.idx]],)
+        return ([segs[1][self.idx]],)
 
     @classmethod
     def IS_CHANGED(s,loop):
@@ -94,11 +94,59 @@ class LoopEnd_SEGS:
             return ()
 
 
+class LoopStart_SEGIMAGE:
+    @classmethod
+    def INPUT_TYPES(s):
+        return {"required": {"loop": ("LOOP",), "image": ("IMAGE",)}}
+
+    RETURN_TYPES = ("IMAGE",)
+    FUNCTION = "run"
+    CATEGORY = "loopback"
+
+    idx = 0
+    def run(self, loop, image):
+        print("LoopStart_SEGS run", self.idx)
+        if hasattr(loop, 'next'):
+            self.idx += 1
+            loop.next = image[self.idx]
+            return (loop.next,)
+        return ([image[self.idx]],)
+
+    @classmethod
+    def IS_CHANGED(s,loop):
+        print("LoopStart_SEGIMAGE IS_CHANGED")
+        print("loop", loop)
+        if hasattr(loop, 'next') and hasattr(loop, 'trigger') and loop.trigger == True:
+            loop.trigger = False
+            return id(loop.next)
+        return float("NaN")
+
+class LoopEnd_SEGIMAGE:
+    @classmethod
+    def INPUT_TYPES(s):
+        return {"required": { "send_to_next_loop": ("IMAGE",), "loop": ("LOOP",) }, "optional": {"image": ("IMAGE",)}}
+
+    RETURN_TYPES = ()
+    LOOP_TYPE = ()
+    FUNCTION = "run"
+    CATEGORY = "loopback"
+    OUTPUT_NODE = True
+
+    def run(self, send_to_next_loop, loop, image):
+        print("LoopEnd_SEGIMAGE run")
+       
+        if image is not None:
+            loop.next = send_to_next_loop
+            loop.trigger = True
+            image = None
+            return ()
+
+
 NODE_CLASS_MAPPINGS = {
     "Loop": Loop,
     "LoopStart": LoopStart,
     "LoopEnd": LoopEnd,
-    "LoopStart_SEGS": LoopStart_SEGS,
+    "LoopStart_SEGIMAGE": LoopStart_SEGIMAGE,
     "LoopEnd_SEGS": LoopEnd_SEGS
 }
 
@@ -107,8 +155,8 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "LoopEnd": "LoopEnd",
     "LoopStart": "LoopStart",
     "LoopEnd": "LoopEnd",
-    "LoopStart_SEGS": "LoopStart_SEGS",
-    "LoopEnd_SEGS": "LoopEnd_SEGS"
+    "LoopStart_SEGIMAGE": "LoopStart_SEGIMAGE",
+    "LoopEnd_SEGIMAGE": "LoopEnd_SEGIMAGE"
 }
 
 def addLoopType(t):
@@ -121,7 +169,7 @@ def addLoopType(t):
 #SEGS
 
 # ComfyUI types
-addLoopType("IMAGE")
+#addLoopType("IMAGE")
 addLoopType("CONDITIONING")
 addLoopType("LATENT")
 addLoopType("MASK")
