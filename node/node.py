@@ -105,7 +105,8 @@ class LoopStart_SEGIMAGE:
 
     idx = 0
     def run(self, loop, image):
-        print("LoopStart_SEGIMAGE image", image)
+        print("LoopStart_SEGIMAGE image lengths", len(image))
+        print("LoopStart_SEGIMAGE image lengths 0", len(image[0]))
         if hasattr(loop, 'next'):
             self.idx += 1
             print("LoopStart_SEGIMAGE first run", self.idx)
