@@ -62,6 +62,7 @@ class LoopStart_SEGS:
             loop.next = segs
             idx += 1
             return (loop.next,)
+        return (segs,)
 
     @classmethod
     def IS_CHANGED(s,loop):
