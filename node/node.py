@@ -61,7 +61,7 @@ class LoopStart_SEGIMAGE:
     images_list = None
     def run(self, loop, image):
         if self.images_list is None:
-            self.images_list = [i for i in image]
+            self.images_list = image.to_list()
             print("LoopStart_SEGIMAGE image_list len1", len(self.images_list))
         if hasattr(loop, 'next'):
             self.idx += 1
