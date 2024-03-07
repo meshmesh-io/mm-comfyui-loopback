@@ -49,19 +49,18 @@ class LoopEnd:
 class LoopStart_SEGS:
     @classmethod
     def INPUT_TYPES(s):
-        return {"required": {"first_loop": s.RETURN_TYPES, "loop": ("LOOP",), "image": ("IMAGE",)}}
+        return {"required": {"loop": ("LOOP",), "image": ("IMAGE",)}}
 
     RETURN_TYPES = ()
     FUNCTION = "run"
     CATEGORY = "loopback"
 
-    def run(self, first_loop, loop):
+    def run(self, loop):
         if hasattr(loop, 'next'):
             return (loop.next,)
-        return (first_loop,)
 
     @classmethod
-    def IS_CHANGED(s, first_loop, loop):
+    def IS_CHANGED(s,loop):
         if hasattr(loop, 'next'):
             return id(loop.next)
         return float("NaN")
