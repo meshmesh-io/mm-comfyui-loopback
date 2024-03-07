@@ -74,7 +74,7 @@ addLoopType("MODEL")
 
 # These don't work for some reason :/
 # addLoopType("FLOAT")
-addLoopType("INT")
+addLoopType("NUMBER")
 addLoopType("STR")
 
 # Derfuu nodes use these types
