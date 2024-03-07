@@ -33,7 +33,7 @@ class LoopStart:
 class LoopEnd:
     @classmethod
     def INPUT_TYPES(s):
-        return {"required": { "send_to_next_loop": s.LOOP_TYPE, "loop": ("LOOP",) }}
+        return {"required": { "send_to_next_loop": s.LOOP_TYPE, "loop": ("LOOP", "LOOP") }}
 
     RETURN_TYPES = ()
     LOOP_TYPE = ()
