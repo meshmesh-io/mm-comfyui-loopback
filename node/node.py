@@ -1,3 +1,5 @@
+import torch
+
 class Loop:
     @classmethod
     def INPUT_TYPES(s):
@@ -46,54 +48,6 @@ class LoopEnd:
         return ()
 
 
-class LoopStart_SEGS:
-    @classmethod
-    def INPUT_TYPES(s):
-        return {"required": {"loop": ("LOOP",), "segs": ("SEGS",)}}
-
-    RETURN_TYPES = ("SEGS",)
-    FUNCTION = "run"
-    CATEGORY = "loopback"
-
-    idx = 0
-    def run(self, loop, segs):
-        print("LoopStart_SEGS run", self.idx)
-        if hasattr(loop, 'next'):
-            self.idx += 1
-            loop.next = segs[1][self.idx]
-            return (loop.next,)
-        return ([segs[1][self.idx]],)
-
-    @classmethod
-    def IS_CHANGED(s,loop):
-        print("LoopStart_SEGS IS_CHANGED")
-        print("loop", loop)
-        if hasattr(loop, 'next') and hasattr(loop, 'trigger') and loop.trigger == True:
-            loop.trigger = False
-            return id(loop.next)
-        return float("NaN")
-
-class LoopEnd_SEGS:
-    @classmethod
-    def INPUT_TYPES(s):
-        return {"required": { "send_to_next_loop": ("SEGS",), "loop": ("LOOP",) }, "optional": {"image": ("IMAGE",)}}
-
-    RETURN_TYPES = ()
-    LOOP_TYPE = ()
-    FUNCTION = "run"
-    CATEGORY = "loopback"
-    OUTPUT_NODE = True
-
-    def run(self, send_to_next_loop, loop, image):
-        print("LoopEnd_SEGS run")
-       
-        if image is not None:
-            loop.next = send_to_next_loop
-            loop.trigger = True
-            image = None
-            return ()
-
-
 class LoopStart_SEGIMAGE:
     @classmethod
     def INPUT_TYPES(s):
@@ -104,16 +58,17 @@ class LoopStart_SEGIMAGE:
     CATEGORY = "loopback"
 
     idx = 0
+    images_list = None
     def run(self, loop, image):
-        print("LoopStart_SEGIMAGE image lengths", len(image))
-        print("LoopStart_SEGIMAGE image lengths 0", len(image[0]))
+        if self.images_list is None:
+            self.images_list = [image[i] for i in range(image.size(0))]
         if hasattr(loop, 'next'):
             self.idx += 1
             print("LoopStart_SEGIMAGE first run", self.idx)
-            loop.next = image[self.idx]
+            loop.next = self.images_list[self.idx]
             return (loop.next,)
         print("LoopStart_SEGIMAGE first run", self.idx)
-        return (image[self.idx],)
+        return (self. images_list[self.idx],)
 
     @classmethod
     def IS_CHANGED(s,loop):
