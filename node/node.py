@@ -69,7 +69,7 @@ class LoopStart_SEGS:
 class LoopEnd_SEGS:
     @classmethod
     def INPUT_TYPES(s):
-        return {"required": { "send_to_next_loop": "SEGS", "loop": ("LOOP",) }, "optional": {"image": "IMAGE"}}
+        return {"required": { "send_to_next_loop": ("SEGS",), "loop": ("LOOP",) }, "optional": {"image": "IMAGE"}}
 
     RETURN_TYPES = ()
     LOOP_TYPE = ()
