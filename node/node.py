@@ -55,11 +55,14 @@ class LoopStart_SEGS:
     FUNCTION = "run"
     CATEGORY = "loopback"
 
+    idx = 0
     def run(self, loop, segs):
+        print("LoopStart_SEGS run", self.idx)
         if hasattr(loop, 'next'):
-            print("LoopStart_SEGS run")
+            self.idx += 1
+            loop.next = segs[self.idx]
             return (loop.next,)
-        return (segs,)
+        return ([segs[self.idx]],)
 
     @classmethod
     def IS_CHANGED(s,loop):
