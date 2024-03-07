@@ -46,7 +46,9 @@ class LoopEnd:
 
 
 NODE_CLASS_MAPPINGS = {
-    "Loop": Loop
+    "Loop": Loop,
+    "LoopStart": LoopStart,
+    "LoopEnd": LoopEnd
 }
 
 def addLoopType(t):
