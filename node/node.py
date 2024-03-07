@@ -58,7 +58,8 @@ class LoopStart_SEGS:
     idx = 0
     def run(self, loop, segs):
         if hasattr(loop, 'next'):
-            loop.next = segs[idx]
+            print("LoopStart_SEGS", segs)
+            loop.next = segs
             idx += 1
             return (loop.next,)
 
