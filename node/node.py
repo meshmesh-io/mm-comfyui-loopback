@@ -55,12 +55,9 @@ class LoopStart_SEGS:
     FUNCTION = "run"
     CATEGORY = "loopback"
 
-    idx = 0
     def run(self, loop, segs):
         if hasattr(loop, 'next'):
             print("LoopStart_SEGS", segs)
-            loop.next = segs
-            idx += 1
             return (loop.next,)
         return (segs,)
 
@@ -83,6 +80,9 @@ class LoopEnd_SEGS:
     OUTPUT_NODE = True
 
     def run(self, send_to_next_loop, loop, image):
+        print("LoopEnd_SEGS send_to_next_loop", send_to_next_loop)
+        print("LoopEnd_SEGS loop", loop)
+        print("LoopEnd_SEGS image", image)
         if image is not None:
             loop.next = send_to_next_loop
             loop.trigger = True
