@@ -57,12 +57,14 @@ class LoopStart_SEGS:
 
     def run(self, loop, segs):
         if hasattr(loop, 'next'):
-            print("LoopStart_SEGS", segs)
+            print("LoopStart_SEGS run")
             return (loop.next,)
         return (segs,)
 
     @classmethod
     def IS_CHANGED(s,loop):
+        print("LoopStart_SEGS IS_CHANGED")
+        print("loop", loop)
         if hasattr(loop, 'next') and hasattr(loop, 'trigger') and loop.trigger == True:
             loop.trigger = False
             return id(loop.next)
@@ -80,9 +82,8 @@ class LoopEnd_SEGS:
     OUTPUT_NODE = True
 
     def run(self, send_to_next_loop, loop, image):
-        print("LoopEnd_SEGS send_to_next_loop", send_to_next_loop)
-        print("LoopEnd_SEGS loop", loop)
-        print("LoopEnd_SEGS image", image)
+        print("LoopEnd_SEGS run")
+       
         if image is not None:
             loop.next = send_to_next_loop
             loop.trigger = True
