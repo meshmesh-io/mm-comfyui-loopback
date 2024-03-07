@@ -61,14 +61,15 @@ class LoopStart_SEGS:
 
     @classmethod
     def IS_CHANGED(s,loop):
-        if hasattr(loop, 'next'):
+        if hasattr(loop, 'next') and hasattr(loop, 'trigger') and loop.trigger == True:
+            loop.trigger = False
             return id(loop.next)
         return float("NaN")
 
 class LoopEnd_SEGS:
     @classmethod
     def INPUT_TYPES(s):
-        return {"required": { "send_to_next_loop": "SEGS", "loop": ("LOOP",) }}
+        return {"required": { "send_to_next_loop": "SEGS", "loop": ("LOOP",) }, "optional": {"image": "IMAGE"}}
 
     RETURN_TYPES = ()
     LOOP_TYPE = ()
@@ -76,9 +77,12 @@ class LoopEnd_SEGS:
     CATEGORY = "loopback"
     OUTPUT_NODE = True
 
-    def run(self, send_to_next_loop, loop):
-        loop.next = send_to_next_loop
-        return ()
+    def run(self, send_to_next_loop, loop, image):
+        if image is not None:
+            loop.next = send_to_next_loop
+            loop.trigger = True
+            image = None
+            return ()
 
 
 NODE_CLASS_MAPPINGS = {
