@@ -61,7 +61,9 @@ class LoopStart_SEGIMAGE:
     images_list = None
     def run(self, loop, image):
         if self.images_list is None:
-            self.images_list = image.tolist()
+            images_list_chunk = torch.chunk(image, image.size(0), dim=0)
+            images_list_chunk = [img.squeeze(0) for img in images_list_chunk]  # Remove the extra dimension
+            self.images_list = images_list_chunk
             print("LoopStart_SEGIMAGE image_list len1", len(self.images_list))
         if hasattr(loop, 'next'):
             self.idx += 1
