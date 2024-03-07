@@ -60,11 +60,12 @@ class LoopStart_SEGIMAGE:
     idx = 0
     images_list = None
     def run(self, loop, image):
+        print(f"Input tensor shape: {image.shape}")
         if self.images_list is None:
             images_list_chunk = torch.chunk(image, image.size(0), dim=0)
             images_list_chunk = [img.squeeze(0) for img in images_list_chunk]  # Remove the extra dimension
             self.images_list = images_list_chunk
-            print("LoopStart_SEGIMAGE image_list len1", len(self.images_list))
+            print(f"LoopStart_SEGIMAGE image_list len after split: {len(self.images_list)}")  # Debug print for list length
         if hasattr(loop, 'next'):
             self.idx += 1
             print("LoopStart_SEGIMAGE first run", self.idx)
