@@ -1,5 +1,6 @@
 import torch
-
+from PIL import Image
+import numpy as np
 class Loop:
     @classmethod
     def INPUT_TYPES(s):
@@ -58,13 +59,14 @@ class LoopStart_SEGIMAGE:
     CATEGORY = "loopback"
 
     idx = 0
-    images_list = None
+    images_list = []
     def run(self, loop, image):
         print(f"Input tensor shape: {image.shape}")
         if self.images_list is None:
-            images_list_chunk = torch.chunk(image, image.size(0), dim=0)
-            images_list_chunk = [img.squeeze(0) for img in images_list_chunk]  # Remove the extra dimension
-            self.images_list = images_list_chunk
+            for (batch_number, image) in enumerate(image):
+                i = 255. * image.cpu().numpy()
+                img = Image.fromarray(np.clip(i, 0, 255).astype(np.uint8))
+                self.images_list.append(img)
             print(f"LoopStart_SEGIMAGE image_list len after split: {len(self.images_list)}")  # Debug print for list length
         if hasattr(loop, 'next'):
             self.idx += 1
