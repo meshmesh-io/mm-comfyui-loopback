@@ -35,7 +35,7 @@ class LoopEnd:
     def INPUT_TYPES(s):
         return {"required": { "send_to_next_loop": s.LOOP_TYPE, "loop": ("LOOP",) }}
 
-    RETURN_TYPES = ()
+    LOOP_TYPE = ()
     FUNCTION = "run"
     CATEGORY = "loopback"
     OUTPUT_NODE = True
